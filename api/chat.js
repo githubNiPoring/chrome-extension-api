@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { GPTx } = require('@ruingl/gptx');
 
 const app = express();
@@ -6,6 +7,9 @@ const gptx = new GPTx({ provider: 'Voids', model: 'gpt-4o-2024-08-06' });
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Use CORS to allow requests from your Chrome extension
+app.use(cors());
 
 // Define the /chat endpoint
 app.post('/chat', async (req, res) => {
