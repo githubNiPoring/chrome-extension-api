@@ -7,7 +7,7 @@ const gptx = new GPTx({ provider: 'Voids', model: 'gpt-4o-2024-08-06' });
 
 // Middleware to parse JSON requests
 app.use(express.json());
-app.use(cors()); // Add this line to enable CORS
+app.use(cors()); // Enable CORS
 
 // Define the /chat endpoint
 app.post('/chat', async (req, res) => {
@@ -22,10 +22,10 @@ app.post('/chat', async (req, res) => {
   try {
     const response = await gptx.ChatCompletion(messages);
     
-    // Log the response to debug
-    console.log(`Received GPTx Response: ${JSON.stringify(response)}`);
+    // Log the complete response for debugging
+    console.log(`Complete GPTx Response: ${JSON.stringify(response)}`);
 
-    // Assuming the API response has the structure you need
+    // Check the structure of the response
     const aiResponse = response.content || 'No response from AI';
     
     // Return the response in the desired format
