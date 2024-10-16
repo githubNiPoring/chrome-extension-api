@@ -1,13 +1,11 @@
 const express = require('express');
 const { GPTx } = require('@ruingl/gptx');
-const cors = require('cors');
 
 const app = express();
 const gptx = new GPTx({ provider: 'Voids', model: 'gpt-4o-2024-08-06' });
 
 // Middleware to parse JSON requests
 app.use(express.json());
-app.use(cors()); // Enable CORS
 
 // Define the /chat endpoint
 app.post('/chat', async (req, res) => {
@@ -18,22 +16,13 @@ app.post('/chat', async (req, res) => {
   }
 
   const messages = [{ role: 'user', content: message }];
-
+  
   try {
     const response = await gptx.ChatCompletion(messages);
+    console.log(`Received GPTx Response: ${JSON.stringify(response)}`);
     
-    // Log the complete response for debugging
-    console.log(`Complete GPTx Response: ${JSON.stringify(response)}`);
-
-    // Adjust the parsing based on the actual response structure
-    const aiResponse = response.choices[0]?.message?.content || 'No response from AI';
-
-    // Return the response in the desired format
-    res.json({
-      reply: {
-        content: aiResponse
-      }
-    });
+    // Send back the response
+    res.json({ reply: response });
   } catch (error) {
     console.error('Error with GPTx ChatCompletion:', error);
     res.status(500).json({ error: 'Error with GPTx ChatCompletion' });
