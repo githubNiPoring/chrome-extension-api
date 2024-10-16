@@ -25,9 +25,9 @@ app.post('/chat', async (req, res) => {
     // Log the complete response for debugging
     console.log(`Complete GPTx Response: ${JSON.stringify(response)}`);
 
-    // Check the structure of the response
-    const aiResponse = response.content || 'No response from AI';
-    
+    // Adjust the parsing based on the actual response structure
+    const aiResponse = response.choices[0]?.message?.content || 'No response from AI';
+
     // Return the response in the desired format
     res.json({
       reply: {
