@@ -2,7 +2,7 @@ const express = require('express');
 const { GPTx } = require('@ruingl/gptx');
 
 const app = express();
-const gptx = new GPTx({ provider: 'Voids', model: 'gemini-1.5-pro-exp-0827' });
+const gptx = new GPTx({ provider: 'Voids', model: '	gemini-1.5-flash-exp-0827' });
 
 // Middleware to parse JSON requests
 app.use(express.json());
