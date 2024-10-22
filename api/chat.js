@@ -28,7 +28,5 @@ app.post("/chat", async (req, res) => {
     res.status(500).json({ error: "Error with GPTx ChatCompletion" });
   }
 });
-
-console.log("Hello CV");
 // Export the app for Vercel
 module.exports = app;
