@@ -1,33 +1,34 @@
-const express = require('express');
-const { GPTx } = require('@ruingl/gptx');
+const express = require("express");
+const { GPTx } = require("@ruingl/gptx");
 
 const app = express();
-const gptx = new GPTx({ provider: 'Voids', model: 'gpt-4o-2024-08-06' });
+const gptx = new GPTx({ provider: "Voids", model: "gpt-4o-2024-08-06" });
 
 // Middleware to parse JSON requests
 app.use(express.json());
 
 // Define the /chat endpoint
-app.post('/chat', async (req, res) => {
+app.post("/chat", async (req, res) => {
   const { message } = req.body;
 
   if (!message) {
-    return res.status(400).json({ error: 'Message is required' });
+    return res.status(400).json({ error: "Message is required" });
   }
 
-  const messages = [{ role: 'user', content: message }];
-  
+  const messages = [{ role: "user", content: message }];
+
   try {
     const response = await gptx.ChatCompletion(messages);
     console.log(`Received GPTx Response: ${JSON.stringify(response)}`);
-    
+
     // Send back the response
     res.json({ reply: response });
   } catch (error) {
-    console.error('Error with GPTx ChatCompletion:', error);
-    res.status(500).json({ error: 'Error with GPTx ChatCompletion' });
+    console.error("Error with GPTx ChatCompletion:", error);
+    res.status(500).json({ error: "Error with GPTx ChatCompletion" });
   }
 });
 
+console.log("Hello CV");
 // Export the app for Vercel
 module.exports = app;
